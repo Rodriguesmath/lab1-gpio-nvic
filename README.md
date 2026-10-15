@@ -4,7 +4,10 @@
 
 ---
 
-## 1. Descrição do Protocolo Proprietário
+> [!NOTE]
+> **Estilo de Codificacao:** A arquitetura de firmware, nomenclatura de identificadores, utilizacao de BSP, struct de dados locais e padronizacao Doxygen deste repositorio foram inspiradas nas diretrizes de boas praticas do **Laboratorio ASSERT (IFPB)**.
+
+## 1. Descricao do Protocolo Proprietario
 
 Este protocolo foi desenvolvido do zero para permitir a troca confiável e rápida de dados em modo **Half-Duplex** entre duas placas STM32 utilizando estritamente pinos de entrada/saída de uso geral (**GPIO**) e o controlador de interrupções externas (**NVIC/EXTI**), sem depender de periféricos dedicados (UART, SPI, I²C).
 
