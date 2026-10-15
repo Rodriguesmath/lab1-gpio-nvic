@@ -19,12 +19,13 @@ Este protocolo foi desenvolvido do zero para permitir a troca confiável e rápi
 
 ## 2. Pinagem e Interligação Física
 
-| Linha do Protocolo | Placa A (Transmissor / Master) | Placa B (Receptor / Slave) | Descrição |
-| :--- | :---: | :---: | :--- |
-| **`PROTO_DATA`** | `PA0` (Saída Push-Pull) | `PA0` (Entrada com Pull-Up) | Linha serial de dados (LSB first) |
-| **`PROTO_CLK`**  | `PA1` (Saída Push-Pull) | `PA1` (Entrada EXTI Borda Subida) | Sinal de sincronismo/amostragem |
-| **`PROTO_ACK`**  | `PA2` (Entrada com Pull-Up) | `PA2` (Saída Push-Pull) | Linha de handshake (Pulso LOW = ACK) |
-| **`GND`**        | `GND` | `GND` | **OBRIGATÓRIO: Referência de terra comum** |
+| Linha / Periférico | Black Pill (F411) | STM32H723 | Nucleo-F767ZI | Descrição |
+| :--- | :---: | :---: | :---: | :--- |
+| **`PROTO_DATA`** | `PA0` | `PA0` | `PA0` | Linha serial de dados (LSB first) |
+| **`PROTO_CLK`**  | `PA1` | `PA1` | `PA1` | Sinal de amostragem / EXTI1 |
+| **`PROTO_ACK`**  | `PA2` | `PA2` | `PA2` | Handshake (Pulso LOW = Confirmação) |
+| **`LED_STATUS`** | `PC13` (Ativo LOW) | `PC13` | `PB0` (Ativo HIGH) | Confirmação visual de integridade |
+| **`GND`**        | `GND` | `GND` | `GND` | **OBRIGATÓRIO: Referência de terra comum** |
 
 ---
 
