@@ -27,6 +27,11 @@ Este protocolo foi desenvolvido do zero para permitir a troca confiável e rápi
 | **`LED_STATUS`** | `PC13` (Ativo LOW) | `PC13` | `PB0` (Ativo HIGH) | Confirmação visual de integridade |
 | **`GND`**        | `GND` | `GND` | `GND` | **OBRIGATÓRIO: Referência de terra comum** |
 
+### Diagrama de Interligação Elétrica
+![Esquemático do Protocolo GPIO](Docs/esquematico_circuito.png)
+
+> O arquivo vetorial completo está disponível em: [Esquematico_Placa0_Protocolo_GPIO.pdf](Docs/Esquematico_Placa0_Protocolo_GPIO.pdf)
+
 ---
 
 ## 3. Formato do Frame de Dados
