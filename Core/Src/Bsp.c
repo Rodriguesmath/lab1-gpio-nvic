@@ -283,18 +283,18 @@ static void Bsp_GpioInit(void)
     HAL_GPIO_Init(dBSP_LED_PORT, &GPIO_InitStruct);
 
 #if (dBSP_IS_TRANSMITTER_NODE == 1)
-    /* Transmissor (Master): DATA e CLK como saidas, ACK como entrada */
+    /* Transmissor (Master): DATA e CLK como saidas Open-Drain com pull-up, ACK como entrada */
     HAL_GPIO_WritePin(dBSP_PROTO_DATA_PORT, dBSP_PROTO_DATA_PIN, GPIO_PIN_SET);
     HAL_GPIO_WritePin(dBSP_PROTO_CLK_PORT, dBSP_PROTO_CLK_PIN, GPIO_PIN_SET);
 
     GPIO_InitStruct.Pin = dBSP_PROTO_DATA_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD; // Open-Drain: imune a curtos e compativel com Multidrop
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     HAL_GPIO_Init(dBSP_PROTO_DATA_PORT, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = dBSP_PROTO_CLK_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     HAL_GPIO_Init(dBSP_PROTO_CLK_PORT, &GPIO_InitStruct);
@@ -305,7 +305,7 @@ static void Bsp_GpioInit(void)
     HAL_GPIO_Init(dBSP_PROTO_ACK_PORT, &GPIO_InitStruct);
 
 #else
-    /* Receptor (Slave): DATA como entrada, ACK como saida, CLK como EXTI */
+    /* Receptor (Slave): DATA como entrada, ACK como saida Open-Drain, CLK como EXTI */
     HAL_GPIO_WritePin(dBSP_PROTO_ACK_PORT, dBSP_PROTO_ACK_PIN, GPIO_PIN_SET);
 
     GPIO_InitStruct.Pin = dBSP_PROTO_DATA_PIN;
@@ -314,7 +314,7 @@ static void Bsp_GpioInit(void)
     HAL_GPIO_Init(dBSP_PROTO_DATA_PORT, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = dBSP_PROTO_ACK_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD; // Open-Drain com pull-up
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     HAL_GPIO_Init(dBSP_PROTO_ACK_PORT, &GPIO_InitStruct);

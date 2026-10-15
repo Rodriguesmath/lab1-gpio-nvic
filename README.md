@@ -15,6 +15,14 @@ Este protocolo foi desenvolvido do zero para permitir a troca confiável e rápi
 - **Robustez:** Cada palavra de 8 bits conta com checagem de paridade par (*Even Parity*) e mecanismo de *Handshake* por confirmação ativa (**ACK/NACK**), com retransmissão automática em caso de erro.
 - **Velocidade:** Temporização baseada no contador de ciclos de clock do núcleo ARM Cortex-M (**DWT Cycle Counter**), operando a uma taxa efetiva superior a **100 kbps** com amostragem na borda de subida do sinal de clock.
 
+### Requisitos Avançados Atendidos:
+1. **Checagem de Erro:** Bit de paridade par computado em tempo real com descarte de frame corrompido.
+2. **Handshake Ativo:** Linha `PROTO_ACK` com pulso de confirmação em nível baixo e retransmissão sob demanda.
+3. **Barramento em Dreno Aberto (Open-Drain com Pull-Up) e Suporte a Multidrop:**
+   - As saídas são configuradas como **Open-Drain (`GPIO_MODE_OUTPUT_OD`) com Pull-Up**.
+   - **Por que Open-Drain é superior ao Push-Pull?** Em Push-Pull, se dois nós transmitirem níveis opostos simultaneamente (ex: um em HIGH e outro em LOW), ocorre um curto-circuito interno violento (~55 mA). No modo Open-Drain (*wired-AND*), os transistores NMOS apenas drenam para o terra ou deixam a linha flutuar para 3.3V via resistor de pull-up, **eliminando qualquer risco de curto-circuito** e permitindo interligar múltiplos nós escravos no mesmo barramento (**Topologia Multidrop**).
+   - **Compatibilidade com NVIC/EXTI:** O detector de borda do EXTI monitora a saída do Schmitt Trigger digital do registrador de entrada (`IDR`). Como o pull-up garante transições elétricas limpas e rápidas (tempo de subida $< 100\text{ ns}$ com pull-up de $1.5\text{ k}\Omega$ a $4.7\text{ k}\Omega$), o NVIC dispara as interrupções de borda de subida com total precisão.
+
 ---
 
 ## 2. Pinagem e Interligação Física
