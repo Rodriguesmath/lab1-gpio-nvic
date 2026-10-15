@@ -18,8 +18,11 @@
 #define dTX_CYCLE_DELAY_MS        1000
 
 /* Private variables ---------------------------------------------------------*/
+#if (dBSP_IS_TRANSMITTER_NODE == 1)
 static u8 txTestPayload[dTEST_ARRAY_SIZE];
+#else
 static u8 rxTestPayload[dTEST_ARRAY_SIZE];
+#endif
 
 /**
   * @brief  The application entry point.
